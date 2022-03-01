@@ -1,0 +1,20 @@
+1.Every dotnet core application is by default a console application.
+2.Program.cs is the entry point(main function)
+3.Main() then call CreateHostBuilder() function which calls Host.DefaultHostBuilder() function.
+4.It configures the web host(sets up the web server, loads the host , loads application configuration , logging)
+5.Host is responsible for managing runtime(managing JIT , Garbage Collector)
+6.Two types of hosting are there:
+	Inprocess: It means UseIIS().there is only one server ,IIS.By default it supports Inprocess hosting.
+	OutOfProcess:Depends on how our code gets executed.
+		1.Using CLI, only one server.only Kestrel is needed.It handles incoming HTTP requests.External server is 		not needed.
+		2.Using Visual Studio,two server; one is internal web server Kestrel other one is a proxy server i.e. 		IIS,Apache. 
+		This proxy server handles the incoming HTTP requests and then sends these requests to the Kestrel server.
+		Kestrel server process this requests and sends response to the external server.This external servers also 			provides load balancing functionality.
+7.In Dotnet CLI hosting is always of OutOfProcess type.
+8.Visual Studio by default supports InProcess hosting.
+9.Performance of Inprocess hosting is better than OutOfProcess hosting. 
+10.Startup.cs is executed first when ASP.NET core application starts. It is similar to Global.asax in ASP.NET .
+11.Startup.cs has two methods:Configure() and ConfigurationServices().Configuration() is must and ConfigurationServices() is optional.
+12.Services means dependent class. any class that is going to be used inside another class.Services are configured inside ConfigureServices() method.
+13.Middleware is nothing but classes that handle HTTP requests. These middlewares recieves HTTP requests and depending on the request can send respond directly back to the server or forwards the request to the next middleware in pipeline.Middlewares are configured inside Configure() method.
+
